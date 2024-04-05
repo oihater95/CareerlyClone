@@ -1,52 +1,23 @@
 import React, { useState } from 'react';
+import { KAKAO_AUTH_URL } from '../config/config';
 import '../css/pages/LandingLoginPage.scss'
 
 // 랜딩 페이지 컴포넌트
 const LandingLoginPage: React.FC = () => {
-  const [showLogin, setShowLogin] = useState(true);
-
-  const handleClickLogin = () => {
-    setShowLogin(false);
-  };
-
-  return (
-    <div>
-      {showLogin && <LoginForm onClose={handleClickLogin} />}
-      {/* {showLogin ? <LoginForm onClose={handleClickLogin} /> : 로그인 상태 Landing } */}
-    </div>
-  );
-};
-
-// 로그인 컴포넌트
-const LoginForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  // 백엔드에서 받아야할듯..?
 
   const handleLogin = () => {
-    // 여기에 로그인 처리 로직을 추가하세요.
-    console.log('Username:', username);
-    console.log('Password:', password);
-    onClose();
+    window.location.href = KAKAO_AUTH_URL;
   };
 
   return (
-    <div className='landing-login'>
-      <h2>Login</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button className='landing-login--btn' onClick={handleLogin}>Login</button>
-    </div>
+    <button type='button' onClick={handleLogin}>
+      Kakao Login
+    </button>
   );
 };
+
+
+// TODO Kakao SignUp
 
 export default LandingLoginPage;
