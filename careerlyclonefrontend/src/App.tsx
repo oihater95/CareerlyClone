@@ -1,18 +1,18 @@
-// App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingLoginPage from './pages/LandingLoginPage';
-import OAuth from './pages/OAuth';
+import MainPage from './pages/MainPage';
+import NavBar from './components/common/Navbar';
 import './App.scss'
 
 const App: React.FC = () => {
   return (
     <Router>
-      <div className='root-container'>
-        {/* nav bar */}
+      <div className="root-container">
+        <NavBar />
         <Routes>
-          <Route path="/" Component={LandingLoginPage} />
-          <Route path="/oauth/kakao/callback" Component={OAuth} />
+          <Route path="/" element={<LandingLoginPage />} />
+          <Route path="/oauth/kakao/callback" element={<MainPage />} />
         </Routes>
       </div>
     </Router>

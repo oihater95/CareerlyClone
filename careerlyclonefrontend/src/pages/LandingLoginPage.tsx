@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { KAKAO_AUTH_URL } from '../config/config';
-import '../css/pages/LandingLoginPage.scss'
+import '../css/pages/MainPage.scss'
 
 // 랜딩 페이지 컴포넌트
 const LandingLoginPage: React.FC = () => {
@@ -11,9 +11,11 @@ const LandingLoginPage: React.FC = () => {
   };
 
   return (
-    <button type='button' onClick={handleLogin}>
-      Kakao Login
-    </button>
+    <div className="root-content-grid-container">
+      <button type='button' onClick={handleLogin}>
+        Kakao Login
+      </button>
+    </div>
   );
 };
 
