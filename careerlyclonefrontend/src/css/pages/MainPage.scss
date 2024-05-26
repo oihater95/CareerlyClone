@@ -1,0 +1,92 @@
+.root-content-grid-container {
+  position: relative;
+  width: 60%;
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 500px;
+  height: 300px;
+  border: 1px solid #888;
+  border-radius: 3px;
+}
+
+.landing-login--btn {
+  
+}
+
+.grid-item-content--main {
+  display: flex;
+  flex-direction: column;
+  grid-column: 8 span / 8 span;
+  gap: 1.25rem;
+  padding: 0 2rem;
+
+}
+
+.grid-item-content--sub {
+  // grid-column-start: 9;
+  grid-column: 4 span / 4 span;
+  padding: 0 1rem;
+  border-left: 1px solid lightgrey;
+}
+
+.feed-frame--element {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.feed-profile {
+  display: flex;
+
+  .feed-profile-detail {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.feed-profile--img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.feed-content {
+  display: -webkit-box;
+  line-height: 1.5rem;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+}
+
+.subfeed-profile--img {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+
+.subfeed-frame--element {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+
+  .subfeed-profile {
+    display: flex;
+    font-size: 10px;
+    gap: 5px;
+  }
+
+  .subfeed-nickname {
+    font-weight: bold;
+  }
+
+  .subfeed-title {
+    font-size: 12px;
+  }
+}
