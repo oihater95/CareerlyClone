@@ -27,14 +27,14 @@ const FeedContentComponent = ({feedContentData}: { feedContentData: feedContentP
       <div 
         ref={contentRef}
         style={{
-          maxHeight: isExpanded ? 'none' : '4.5em', // 확장 상태에 따라 높이 설정 (3줄 기준: 4.5em)
+          maxHeight: isExpanded ? 'none' : '4em', // 확장 상태에 따라 높이 설정 (3줄 기준: 4.5em)
         }}
         className='feed-content'>
         <p>{feedContentData.content}</p>
       </div>
       {isOverflowing && ( // 콘텐츠가 넘칠 때만 더보기/접기 버튼 표시
-        <button onClick={() => setIsExpanded(!isExpanded)}>
-          {isExpanded ? '접기' : '더보기'}
+        <button className='feed-content--btn' onClick={() => setIsExpanded(!isExpanded)}>
+          {isExpanded ? '> 접기' : '...더 보기'}
         </button>
       )}
     </div>

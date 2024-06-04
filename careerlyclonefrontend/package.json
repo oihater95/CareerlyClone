@@ -10,6 +10,7 @@
     "@types/node": "^16.18.87",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
+    "mobx": "^6.12.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
@@ -41,5 +42,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.1.1",
+    "@types/react-router-dom": "^5.3.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "globals": "^15.0.0",
+    "typescript-eslint": "^7.7.1"
   }
 }
