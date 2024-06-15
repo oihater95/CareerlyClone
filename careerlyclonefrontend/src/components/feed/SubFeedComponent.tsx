@@ -7,6 +7,7 @@ interface feedProps {
   positionJob: string,
   profileImg: string,
   title: string,
+  token: string,
 }
 
 const SubFeedComponent = ({feedData}: { feedData: feedProps[] }) => {

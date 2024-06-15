@@ -2,6 +2,7 @@ import { REST_API_KEY, REDIRECT_URI, CLIENT_SECRET } from '../config/config';
 import MainFeedComponent from 'components/feed/MainFeedComponent';
 import '../css/pages/MainPage.scss'
 import SubFeedComponent from 'components/feed/SubFeedComponent';
+import axios from 'axios';
 
 interface feedProps {
   nickName: string,
@@ -10,6 +11,8 @@ interface feedProps {
   date?: string,
   title: string,
   contents?: string
+  token: string  // 게시글의 아이디 개념 , 대체키
+  commentSize?: number
 }
 
 const OAuth: React.FC = () => {
@@ -18,6 +21,7 @@ const OAuth: React.FC = () => {
   // 인가코드는 백엔드로 넘겨서 reponse로 jwt 토큰 받기
   const code = params.get('code');
 
+  // http://careerwry.site:9002/
   const tempMainData: feedProps[]= [
     {
       nickName: '개개발발자자',
@@ -26,6 +30,8 @@ const OAuth: React.FC = () => {
       date: '5월 3일',
       title: '우와아앙',
       contents: '이것이 첫글이지롱',
+      token: 'temp1',
+      commentSize: 0,
     },
     {
       nickName: '자자발발개개',
@@ -41,6 +47,8 @@ const OAuth: React.FC = () => {
       The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
       Where can I get some?
       There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.`,
+      token: 'temp2',
+      commentSize: 0,
     }
   ];
 
@@ -50,50 +58,81 @@ const OAuth: React.FC = () => {
       positionJob: '어딘가의 프론트엔드 개발자',
       profileImg: 'https://e7.pngegg.com/pngimages/1000/665/png-clipart-computer-icons-profile-s-free-angle-sphere.png',
       title: '우와아앙',
+      token: 'temp3',
     },
     {
       nickName: '자자발발개개',
       positionJob: '어딘가의 백엔드 개발자',
       profileImg: 'https://cdn.pixabay.com/photo/2020/05/17/20/21/cat-5183427_1280.jpg',
       title: 'lorem ipsum',
+      token: 'temp4',
     },
     {
       nickName: 'tempName',
       positionJob: 'Temp developer',
       profileImg: 'https://img.freepik.com/premium-vector/question-mark-in-person-head-icon-as-unknown-secret-anonym-user-profile-or-doubt-secret-brain-mind_101884-2200.jpg?w=360',
       title: 'Temp Title',
+      token: 'temp5',
     },
     {
       nickName: 'tempName',
       positionJob: 'Temp developer',
       profileImg: 'https://img.freepik.com/premium-vector/question-mark-in-person-head-icon-as-unknown-secret-anonym-user-profile-or-doubt-secret-brain-mind_101884-2200.jpg?w=360',
       title: 'Temp Title',
+      token: 'temp6',
     },
     {
       nickName: 'tempName',
       positionJob: 'Temp developer',
       profileImg: 'https://img.freepik.com/premium-vector/question-mark-in-person-head-icon-as-unknown-secret-anonym-user-profile-or-doubt-secret-brain-mind_101884-2200.jpg?w=360',
       title: 'Temp Title',
+      token: 'temp7',
     },
     {
       nickName: 'tempName',
       positionJob: 'Temp developer',
       profileImg: 'https://img.freepik.com/premium-vector/question-mark-in-person-head-icon-as-unknown-secret-anonym-user-profile-or-doubt-secret-brain-mind_101884-2200.jpg?w=360',
       title: 'Temp Title',
+      token: 'temp8',
     },
     {
       nickName: 'tempName',
       positionJob: 'Temp developer',
       profileImg: 'https://img.freepik.com/premium-vector/question-mark-in-person-head-icon-as-unknown-secret-anonym-user-profile-or-doubt-secret-brain-mind_101884-2200.jpg?w=360',
       title: 'Temp Title',
+      token: 'temp9',
     },
     {
       nickName: 'tempName',
       positionJob: 'Temp developer',
       profileImg: 'https://img.freepik.com/premium-vector/question-mark-in-person-head-icon-as-unknown-secret-anonym-user-profile-or-doubt-secret-brain-mind_101884-2200.jpg?w=360',
       title: 'Temp Title',
+      token: 'temp10',
     },
   ];
+
+
+  // async/await with axios
+const getMainFeedData = async () => {
+  try {
+    const response = await axios.get('http://careerwry.site:9002/posts?page=0&size=5&sort=createdDate,desc', {
+      headers: {
+        token: code,
+      },
+      params: {
+        query: {
+          // page, size, sort 같은 쿼리는 여기에 쓸 것
+        }
+      }
+    })
+    const feedData = response.data.content;
+    tempMainData.push(feedData);
+    console.log("response >>", response.data)
+  } catch(err) {
+    console.log("Error >>", err);
+  }
+}
+getMainFeedData();
 
   return (
     <div className='root-content-grid-container'>

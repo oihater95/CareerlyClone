@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../../css/pages/MainPage.scss';
-import FeedContentComponent from './FeedContentComponent';
 
 
 interface feedProps {
@@ -19,27 +18,26 @@ interface feedContentProps {
   content?: string
 }
 
-const MainFeedComponent = ({feedData}: { feedData: feedProps[] }) => {
-  const renderFeed = (feedData: feedProps[]) => {
-    return feedData.map(data => (
+const PostingDetailComponent = ({feedData}: { feedData: feedProps }) => {
+  const renderFeed = (feedData: feedProps) => {
+    return (
       <div className='feed-frame--element'>
         <div className='feed-profile'>
-          <img className='feed-profile--img' src={data.profileImg} alt="profileImg" />
+          <img className='feed-profile--img' src={feedData.profileImg} alt="profileImg" />
           <div className='feed-profile-detail'>
             <div className='feed-nickname'>
-              <span>{data.nickName}</span>
+              <span>{feedData.nickName}</span>
             </div>
             <div className='feed-position'>
-              <span>{data.positionJob}</span>
+              <span>{feedData.positionJob}</span>
             </div>
             <div className='feed-date'>
-              <span>{data.date}</span>
+              <span>{feedData.date}</span>
             </div>
           </div>
         </div>
-        <FeedContentComponent feedContentData={{ title: data.title, content: data.contents }}/>
       </div>
-    ));
+    );
   }
 
   return (
@@ -49,4 +47,4 @@ const MainFeedComponent = ({feedData}: { feedData: feedProps[] }) => {
   );
 }
 
-export default MainFeedComponent;
+export default PostingDetailComponent;
