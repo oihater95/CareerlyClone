@@ -1,7 +1,7 @@
 import { REST_API_KEY, REDIRECT_URI, CLIENT_SECRET } from '../config/config';
-import MainFeedComponent from 'components/feed/MainFeedComponent';
+import MainFeedComponent from '../components/feed/MainFeedComponent';
 import '../css/pages/MainPage.scss'
-import SubFeedComponent from 'components/feed/SubFeedComponent';
+import SubFeedComponent from '../components/feed/SubFeedComponent';
 import axios from 'axios';
 
 interface feedProps {
@@ -115,15 +115,15 @@ const OAuth: React.FC = () => {
   // async/await with axios
 const getMainFeedData = async () => {
   try {
-    const response = await axios.get('http://careerwry.site:9002/posts?page=0&size=5&sort=createdDate,desc', {
-      headers: {
-        token: code,
-      },
-      params: {
-        query: {
-          // page, size, sort 같은 쿼리는 여기에 쓸 것
-        }
-      }
+    const response = await axios.get('http://careerwry.site:9002/posts', {
+      // headers: {
+      //   token: code,
+      // },
+      // params: {
+      //   page: 0,
+      //   size: 5,
+      //   sort: 'createdDate,desc',
+      // }
     })
     const feedData = response.data.content;
     tempMainData.push(feedData);

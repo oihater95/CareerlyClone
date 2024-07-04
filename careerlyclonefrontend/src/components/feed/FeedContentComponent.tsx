@@ -2,8 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../../css/pages/MainPage.scss';
 
 interface feedContentProps {
+  nickName: string,
+  positionJob: string,
+  profileImg: string,
+  date?: string,
   title: string,
-  content?: string
+  content?: string,
+  token: string  // 게시글의 아이디 개념 , 대체키
 }
 
 const FeedContentComponent = ({feedContentData}: { feedContentData: feedContentProps }) => {

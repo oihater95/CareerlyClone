@@ -9,8 +9,8 @@ interface feedProps {
   profileImg: string,
   date?: string,
   title: string,
-  contents?: string
-  token: string  // 게시글의 아이디 개념 , 대체키
+  contents?: string,
+  token: string,  // 게시글의 아이디 개념 , 대체키
   commentSize?: number
 }
 
@@ -37,7 +37,15 @@ const MainFeedComponent = ({feedData}: { feedData: feedProps[] }) => {
             </div>
           </div>
         </div>
-        <FeedContentComponent feedContentData={{ title: data.title, content: data.contents }}/>
+        <FeedContentComponent feedContentData={{ 
+          nickName: data.nickName,
+          positionJob: data.positionJob,
+          profileImg: data.profileImg,
+          date: data.date || undefined,
+          title: data.title,
+          content: data.contents || undefined,
+          token: data.token
+        }}/>
       </div>
     ));
   }
