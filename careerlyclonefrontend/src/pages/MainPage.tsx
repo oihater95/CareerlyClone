@@ -1,8 +1,9 @@
-import { REST_API_KEY, REDIRECT_URI, CLIENT_SECRET } from '../config/config';
+import React from 'react';
 import MainFeedComponent from '../components/feed/MainFeedComponent';
 import '../css/pages/MainPage.scss'
 import SubFeedComponent from '../components/feed/SubFeedComponent';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 interface feedProps {
   nickName: string,
@@ -12,17 +13,21 @@ interface feedProps {
   title: string,
   contents?: string
   token: string  // 게시글의 아이디 개념 , 대체키
-  commentSize?: number
+  commentCnt?: number
 }
 
-const OAuth: React.FC = () => {
+const MainPage: React.FC = () => {
   // 카카오 서버로 부터 받은 accessToken 임시처리
   const params = new URL(document.URL).searchParams;
   // 인가코드는 백엔드로 넘겨서 reponse로 jwt 토큰 받기
   const code = params.get('code');
 
+  useEffect(() => {
+    getMainFeedData();
+  }, []);
+
   // http://careerwry.site:9002/
-  const tempMainData: feedProps[]= [
+  let tempMainData: feedProps[]= [
     {
       nickName: '개개발발자자',
       positionJob: '어딘가의 프론트엔드 개발자',
@@ -31,7 +36,7 @@ const OAuth: React.FC = () => {
       title: '우와아앙',
       contents: '이것이 첫글이지롱',
       token: 'temp1',
-      commentSize: 0,
+      commentCnt: 0,
     },
     {
       nickName: '자자발발개개',
@@ -48,7 +53,7 @@ const OAuth: React.FC = () => {
       Where can I get some?
       There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.`,
       token: 'temp2',
-      commentSize: 0,
+      commentCnt: 0,
     }
   ];
 
@@ -110,36 +115,38 @@ const OAuth: React.FC = () => {
       token: 'temp10',
     },
   ];
+  const [mainFeedData, setMainFeedData] = useState<feedProps[]>(tempMainData);
 
 
   // async/await with axios
-const getMainFeedData = async () => {
-  try {
-    const response = await axios.get('http://careerwry.site:9002/posts', {
-      // headers: {
-      //   token: code,
-      // },
-      // params: {
-      //   page: 0,
-      //   size: 5,
-      //   sort: 'createdDate,desc',
-      // }
-    })
-    const feedData = response.data.content;
-    tempMainData.push(feedData);
-    console.log("response >>", response.data)
-  } catch(err) {
-    console.log("Error >>", err);
+  const getMainFeedData = async () => {
+    try {
+      const response = await axios.get('http://careerwry.site:9002/posts', {
+        headers: {
+          token: code,
+        },
+        params: {
+          page: 0,
+          size: 5,
+          sort: 'createdDate,desc',
+        }
+      })
+      const feedData = response.data.data.content;
+      tempMainData = tempMainData.concat(feedData);
+      console.log("response >>", response.data)
+      setMainFeedData(tempMainData);
+    } catch(err) {
+      console.log("Error >>", err);
+    }
   }
-}
-getMainFeedData();
+
 
   return (
     <div className='root-content-grid-container'>
       <div className='grid-item-content--main'>
         로그인 됨, Main
         <br/>
-        <MainFeedComponent feedData={tempMainData} />
+        <MainFeedComponent feedData={mainFeedData} />
       </div>
       <div className='grid-item-content--sub'>
         여긴 sub
@@ -152,4 +159,4 @@ getMainFeedData();
 
 // TODO Kakao SignUp
 
-export default OAuth;
+export default MainPage;
