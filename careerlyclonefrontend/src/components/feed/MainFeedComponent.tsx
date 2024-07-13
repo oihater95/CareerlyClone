@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../css/pages/MainPage.scss';
 import FeedContentComponent from './FeedContentComponent';
 
@@ -14,15 +14,10 @@ interface feedProps {
   commentSize?: number
 }
 
-interface feedContentProps {
-  title: string,
-  content?: string
-}
-
-const MainFeedComponent = ({feedData}: { feedData: feedProps[] }) => {
+const MainFeedComponent = ({feedData, onPostingDetailView}: { feedData: feedProps[], onPostingDetailView: (data: feedProps) => void }) => {
   const renderFeed = (feedData: feedProps[]) => {
     return feedData.map(data => (
-      <div className='feed-frame--element'>
+      <div className='feed-frame--element' key={data.token}>
         <div className='feed-profile'>
           <img className='feed-profile--img' src={data.profileImg} alt="profileImg" />
           <div className='feed-profile-detail'>
@@ -37,15 +32,18 @@ const MainFeedComponent = ({feedData}: { feedData: feedProps[] }) => {
             </div>
           </div>
         </div>
-        <FeedContentComponent feedContentData={{ 
-          nickName: data.nickName,
-          positionJob: data.positionJob,
-          profileImg: data.profileImg,
-          date: data.date || undefined,
-          title: data.title,
-          content: data.contents || undefined,
-          token: data.token
-        }}/>
+        <FeedContentComponent 
+          feedContentData={{ 
+            nickName: data.nickName,
+            positionJob: data.positionJob,
+            profileImg: data.profileImg,
+            date: data.date || undefined,
+            title: data.title,
+            content: data.contents || undefined,
+            token: data.token
+          }}
+          onPostingDetailView={onPostingDetailView}
+        />
       </div>
     ));
   }
