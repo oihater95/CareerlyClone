@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../css/pages/MainPage.scss';
-// import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 interface postingProps {
@@ -9,21 +9,24 @@ interface postingProps {
   profileImg: string,
   date?: string,
   title: string,
-  content?: string
+  contents?: string
   token: string  // 게시글의 아이디 개념 , 대체키
 }
 
 /*
-* Route를 이용하는 방식보다 컴포넌트 교체 방식이 렌더링 측면에서 효율적이고
-* 레퍼런스 또한 컴포넌트 교체 방식으로 동작하는 것을 확인하여 컴포넌트 교체 방식으로 수정함
-* 이벤트 버블링과 프로퍼티 전달 방식 중에 프로퍼티 전달 방식을 택함
-* 이유는 구조가 복잡하지 않고 데이터 전달이 필요해 프로퍼티 전달이 필요했기 때문
+* Route를 통해 이동 시 prop으로 postingData를 넘겨주려면 App.tsx에서 정보를 들고 있어야함
+* App.tsx에서 정보를 들고있지 않으려면 prop 안받고 get요청으로 데이터를 받아야함
+* 다만 get요청으로 데이터 받으면 FeedContentComp에 있던 데이터를 그대로 사용하지 못하고 같은 데이터를 받아야해서 비효율적
+* FeedContent에서 useNavigate state로 postingData 보내고 PostingDetail에서 Location으로 state에 접근하여 postingData 가져오기
+* 위 방법대로 하면 props을 안써도 되고 get요청을 중복하여 보내지 않아도 됨
+* Route하는 방법 대신 MainFeedComponent와 교체하는 방법도 고려해야할 듯 (동작 상 MainFeedComponent와 교체가 가장 효율적으로 보임)
 */
-const PostingDetailComponent = ({ postingData, onBack }: { postingData: postingProps, onBack: () => void }) => {
+const PostingDetailComponent = () => {
+  const location = useLocation();
+  const postingData: postingProps = location.state.postingData;
   const renderFeed = (postingData: postingProps) => {
     return (
       <div className='feed-frame--element'>
-        <button onClick={onBack}>&lt; Home</button>
         <div className='feed-profile'>
           <img className='feed-profile--img' src={postingData.profileImg} alt="profileImg" />
           <div className='feed-profile-detail'>
@@ -37,12 +40,6 @@ const PostingDetailComponent = ({ postingData, onBack }: { postingData: postingP
               <span>{postingData.date}</span>
             </div>
           </div>
-        </div>
-        <div>
-          <h2>{postingData.title}</h2>
-        </div>
-        <div>
-          <p>{postingData.content}</p>
         </div>
       </div>
     );

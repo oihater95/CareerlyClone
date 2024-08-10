@@ -4,7 +4,6 @@ import '../css/pages/MainPage.scss'
 import SubFeedComponent from '../components/feed/SubFeedComponent';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import PostingDetailComponent from '../components/posting/PostingDetailComponent';
 
 interface feedProps {
   nickName: string,
@@ -117,18 +116,7 @@ const MainPage: React.FC = () => {
     },
   ];
   const [mainFeedData, setMainFeedData] = useState<feedProps[]>(tempMainData);
-  const [isPostingDetailView, setIsPostingDetailView] = useState(false);
-  const [selectedFeedData, setSelectedFeedData] = useState<feedProps | null>(null);
 
-  const handlePostingDetailView = (data: feedProps) => {
-    setSelectedFeedData(data);
-    setIsPostingDetailView(true);
-  }
-
-  const handleBackToFeed = () => {
-    setSelectedFeedData(null);
-    setIsPostingDetailView(false);
-  }
 
   // async/await with axios
   const getMainFeedData = async () => {
@@ -156,11 +144,9 @@ const MainPage: React.FC = () => {
   return (
     <div className='root-content-grid-container'>
       <div className='grid-item-content--main'>
-        {isPostingDetailView && selectedFeedData ? (
-          <PostingDetailComponent postingData={selectedFeedData} onBack={handleBackToFeed} />
-        ) : (
-          <MainFeedComponent feedData={mainFeedData} onPostingDetailView={handlePostingDetailView} />
-        )}
+        로그인 됨, Main
+        <br/>
+        <MainFeedComponent feedData={mainFeedData} />
       </div>
       <div className='grid-item-content--sub'>
         여긴 sub
