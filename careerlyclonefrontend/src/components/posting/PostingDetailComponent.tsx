@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/pages/MainPage.scss';
+import '../../css/pages/PostingDetail.module.scss';
 import { useLocation } from 'react-router-dom';
 
 
@@ -9,7 +9,7 @@ interface postingProps {
   profileImg: string,
   date?: string,
   title: string,
-  contents?: string
+  content?: string
   token: string  // 게시글의 아이디 개념 , 대체키
 }
 
@@ -40,6 +40,12 @@ const PostingDetailComponent = () => {
               <span>{postingData.date}</span>
             </div>
           </div>
+        </div>
+        <div>
+          <h2>{postingData.title}</h2>
+        </div>
+        <div>
+          <p>{postingData.content}</p>
         </div>
       </div>
     );

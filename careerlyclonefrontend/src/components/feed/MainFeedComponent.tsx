@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../css/pages/MainPage.scss';
 import FeedContentComponent from './FeedContentComponent';
 
@@ -14,15 +14,15 @@ interface feedProps {
   commentSize?: number
 }
 
-interface feedContentProps {
-  title: string,
-  content?: string
-}
+// interface feedContentProps {
+//   title: string,
+//   content?: string
+// }
 
 const MainFeedComponent = ({feedData}: { feedData: feedProps[] }) => {
   const renderFeed = (feedData: feedProps[]) => {
     return feedData.map(data => (
-      <div className='feed-frame--element'>
+      <div key={data.token} className='feed-frame--element'>
         <div className='feed-profile'>
           <img className='feed-profile--img' src={data.profileImg} alt="profileImg" />
           <div className='feed-profile-detail'>
