@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../../css/pages/MainPage.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface feedContentProps {
   nickName: string,
@@ -11,10 +12,11 @@ interface feedContentProps {
   token: string  // 게시글의 아이디 개념 , 대체키
 }
 
-const FeedContentComponent = ({feedContentData, onPostingDetailView }: { feedContentData: feedContentProps, onPostingDetailView: (data: feedContentProps) => void }) => {
+const FeedContentComponent = ({feedContentData}: { feedContentData: feedContentProps }) => {
   const [isExpanded, setIsExpanded] = useState(false); // 더보기/접기 상태 관리
   const [isOverflowing, setIsOverflowing] = useState(false); // 콘텐츠가 넘치는지 여부 관리
   const contentRef = useRef<HTMLDivElement>(null); // 콘텐츠를 담는 div 요소에 접근하기 위한 ref
+  const navigate = useNavigate();
   // 콘텐츠의 높이를 계산하여 넘치는지 확인
   useEffect(() => {
     if (contentRef.current) {
@@ -23,14 +25,18 @@ const FeedContentComponent = ({feedContentData, onPostingDetailView }: { feedCon
     }
   }, [feedContentData]); // 콘텐츠가 변경될 때마다 실행
 
-  const handleClick = () => {
-    onPostingDetailView(feedContentData);
+  const handleTitleClick = () => {
+    navigate(`/posting/${feedContentData.token}`, {
+      state: {
+        postingData: feedContentData,
+      }
+    }); // navigate에 주소 대신 -1 넣으면 이전페이지
   };
 
   // 댓글 조회 시 게시글 토큰을 param으로 보내서 조회 (?post-tokent=value)
   return (
-    <div className='feed-frame--content'>
-      <div className='feed-title' onClick={handleClick}>
+    <div className='feed-frame--content'  onClick={handleTitleClick}>
+      <div className='feed-title'>
         <p>{feedContentData.title}</p>
       </div>
       <div 
@@ -38,9 +44,7 @@ const FeedContentComponent = ({feedContentData, onPostingDetailView }: { feedCon
         style={{
           maxHeight: isExpanded ? 'none' : '4em', // 확장 상태에 따라 높이 설정 (3줄 기준: 4.5em)
         }}
-        className='feed-content'
-        onClick={handleClick}
-      >
+        className='feed-content'>
         <p>{feedContentData.content}</p>
       </div>
       {isOverflowing && ( // 콘텐츠가 넘칠 때만 더보기/접기 버튼 표시
