@@ -4,13 +4,16 @@
 
 .create-form-edit-tools{
   border-bottom: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
 }
 
-.create-from-edit-tools--list{
+.create-form-edit-tools--list{
   width: 50%;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 
 .create-form-edit--contents {
@@ -66,4 +69,27 @@
 .create-form-button {
   margin: 0 5px;
   width: 2rem;
+}
+
+.create-form-edit-tools--tool {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+}
+
+.create-form-insert-image--frame {
+  border: 1px dotted gray;
+  border-radius: 5px;
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-form-insert-image--placeholder {
+  color: lightgray;
+}
+
+.create-form-insert-image--content {
 }
