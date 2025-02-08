@@ -1,5 +1,5 @@
 import React from "react";
-import "../../css/pages/PostingDetail.module.scss";
+import "../../css/pages/PostingDetail.scss";
 import { useLocation } from "react-router-dom";
 import { convertFromRaw, Editor, EditorState } from "draft-js";
 
@@ -30,34 +30,36 @@ const PostingDetailComponent = () => {
   const editorState = EditorState.createWithContent(contentState);
   const renderFeed = (postingData: postingProps) => {
     return (
-      <div className="feed-frame--element">
-        <div className="feed-profile">
-          <img
-            className="feed-profile--img"
-            src={postingData.profileImg}
-            alt="profileImg"
-          />
-          <div className="feed-profile-detail">
-            <div className="feed-nickname">
-              <span>{postingData.nickName}</span>
-            </div>
-            <div className="feed-position">
-              <span>{postingData.positionJob}</span>
-            </div>
-            <div className="feed-date">
-              <span>{postingData.date}</span>
+      <div className="feed-frame--detail">
+        <div className="feed-frame-detail--element">
+          <div className="feed-profile">
+            <img
+              className="feed-profile--img"
+              src={postingData.profileImg}
+              alt="profileImg"
+            />
+            <div className="feed-profile-detail">
+              <div className="feed-nickname">
+                <span>{postingData.nickName}</span>
+              </div>
+              <div className="feed-position">
+                <span>{postingData.positionJob}</span>
+              </div>
+              <div className="feed-date">
+                <span>{postingData.date}</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <h2>{postingData.title}</h2>
-        </div>
-        <div>
-          <Editor
-            editorState={editorState}
-            onChange={() => {}}
-            readOnly={true} // 편집 불가 모드
-          />
+          <div>
+            <h2>{postingData.title}</h2>
+          </div>
+          <div>
+            <Editor
+              editorState={editorState}
+              onChange={() => {}}
+              readOnly={true} // 편집 불가 모드
+            />
+          </div>
         </div>
       </div>
     );

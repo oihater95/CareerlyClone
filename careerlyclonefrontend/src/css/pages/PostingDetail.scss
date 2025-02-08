@@ -1,9 +1,11 @@
-.feed-frame {
+.feed-frame--detail {
   margin-top: 1.5rem;
-  width: 60%;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
-.feed-frame--element {
+.feed-frame-detail--element {
+  grid-column: 3 / span 8;
   border-bottom: 1px solid #ccc;
   padding: 10px 0;
 }
