@@ -49,8 +49,8 @@ const FeedContentComponent = ({
 
   // 댓글 조회 시 게시글 토큰을 param으로 보내서 조회 (?post-tokent=value)
   return (
-    <div className="feed-frame--content" onClick={handleTitleClick}>
-      <div className="feed-title">
+    <div className="feed-frame--content">
+      <div className="feed-title" onClick={handleTitleClick}>
         <p>{feedContentData.title}</p>
       </div>
       <div
